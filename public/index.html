@@ -1,0 +1,393 @@
+<!doctype html>
+<html>
+<head>
+  <title>Public</title>
+  <style>
+    body {
+      font-family: arial, serif;
+      font-size: 14px;
+    }
+    table {
+      border-collapse:separate;
+      border:solid grey 1px;
+      border-radius:6px;
+    }
+    td, th {
+      border-left:solid grey 1px;
+      border-top: none;
+      padding: 5px 20px 5px 20px;
+    }
+    th {
+      background-color: white;
+      border-top: none;
+      text-align: left;
+    }
+    td:first-child, th:first-child {
+      border-left: none;
+    }
+    .title {
+      font-size:2rem;
+    }
+    .subtitle {
+      font-size:1rem;
+    }
+    .narrative {
+      margin-left:20px;
+    }
+  </style>
+  <script>
+
+    const redirect = async (id) => {
+      const response = await fetch('https://localhost:4001/getURL',{
+        method : 'post',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body : JSON.stringify({
+          'url' : id.innerHTML
+        }),
+        mode : "cors"
+      });
+
+      if (!response.ok) {
+        document.getElementById('urls').innerHTML = 'Error fetching from API';
+        throw new Error ('Something went wrong!');
+      }
+      const responseData = await response.json();
+      originalURL = responseData.data.longURL;
+      window.location.href = originalURL;
+    };
+
+    redirect().catch((error) => {
+      // console.log(error);
+    });
+
+  </script>
+</head>
+<body>
+  <main>
+    <p>
+      <h3>Wonders of the Ancient World</h3>
+    </p>
+    <hr/>
+  </main>
+  <section>
+    <p class="narrative">
+    <table>
+      <thead>
+        <tr>
+          <th><img src="./images/chichenitza.jpg" width="100%" /></th>
+        </tr>
+      </thead>
+      <tr>
+        <td class="title">Chichén Itzá</td>
+      </tr>
+      <tr>
+        <td class="subtitle">Mexico<hr/></td>
+      </tr>
+      <tr>
+        <td>Chichén Itzá is a complex of Mayan ruins on Mexico's Yucatán Peninsula. A massive step pyramid, known as El Castillo or Temple of Kukulcan, dominates the ancient city, which thrived from around 600 A.D. to the 1200s. Graphic stone carvings survive at structures like the ball court, Temple of the Warriors and the Wall of the Skulls. Nightly sound-and-light shows illuminate the buildings' sophisticated geometry. </td>
+      </tr>
+      <tr>
+        <td>Address: Yucatan, Mexico</td>
+      </tr>
+      <tr>
+        <td>Hours:
+          <p style="margin-left:20px">
+            Sunday	8a.m.–4:30p.m.<br/>
+            Monday	8a.m.–4:30p.m.<br/>
+            Tuesday	8a.m.–4:30p.m.<br/>
+            Wednesday	8a.m.–4:30p.m.<br/>
+            Thursday	8a.m.–4:30p.m.<br/>
+            Friday	8a.m.–4:30p.m.<br/>
+            Saturday	8a.m.–4:30p.m.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>Google map: <a href="##" onClick="redirect(this)">https://mini.url/5kt0bmq</a></td>
+      </tr>
+    </table>
+    </p>
+
+    <p>
+      <table>
+        <thead>
+          <tr>
+            <th><img src="./images/christredeemer.jpg" width="100%" /></th>
+          </tr>
+        </thead>
+        <tr>
+          <td class="title">Christ the Redeemer</td>
+        </tr>
+        <tr>
+          <td class="subtitle">Rio de Janeiro - RJ, Brazil<hr/></td>
+        </tr>
+        <tr>
+          <td>Christ the Redeemer is an Art Deco statue of Jesus Christ in Rio de Janeiro, Brazil, created by French sculptor Paul Landowski and built by Brazilian engineer Heitor da Silva Costa, in collaboration with French engineer Albert Caquot. Romanian sculptor Gheorghe Leonida fashioned the face.</td>
+        </tr>
+        <tr>
+          <td>Locations: Rio de Janeiro, Brazil, Corcovado</td>
+        </tr>
+        <tr>
+          <td>Construction started: April 4, 1922</td>
+        </tr>
+        <tr>
+          <td>Architects: Paul Landowski, Heitor da Silva Costa, Gheorghe Leonida, Albert Caquot</td>
+        </tr>
+        <tr>
+          <td>Architectural style: Gothic Revival architecture</td>
+        </tr>
+        <tr>
+          <td>Hours:
+            <p style="margin-left:20px">
+              Sunday	8a.m.–7p.m.<br/>
+              Monday	8a.m.–7p.m.<br/>
+              Tuesday	8a.m.–7p.m.<br/>
+              Wednesday	8a.m.–7p.m.<br/>
+              Thursday	8a.m.–7p.m.<br/>
+              Friday	8a.m.–7p.m.<br/>
+              Saturday	8a.m.–7p.m.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Google map: <a href="##" onClick="redirect(this)">https://mini.url/b7imjlu</a></td>
+        </tr>
+      </table>
+    </p>
+
+    <p>
+      <table>
+        <thead>
+          <tr>
+            <th><img src="./images/colosseum.jpg" width="100%" /></th>
+          </tr>
+        </thead>
+        <tr>
+          <td class="title">Colosseum</td>
+        </tr>
+        <tr>
+          <td class="subtitle">Rome, Italy<hr/></td>
+        </tr>
+        <tr>
+          <td>The Colosseum is an oval amphitheatre in the centre of the city of Rome, Italy, just east of the Roman Forum. It is the largest ancient amphitheatre ever built, and is still the largest standing amphitheatre in the world today, despite its age.</td>
+        </tr>
+        <tr>
+          <td>Address: Piazza del Colosseo, 1, 00184 Roma RM, Italy</td>
+        </tr>
+        <tr>
+          <td>Built by: Titus, Domitian</td>
+        </tr>
+        <tr>
+          <td>Architectural style: Ancient Roman architecture</td>
+        </tr>
+        <tr>
+          <td>Height: 48 m</td>
+        </tr>
+        <tr>
+          <td>Hours:
+            <p style="margin-left:20px">
+              Sunday	9a.m.–4:30p.m.<br/>
+              Monday	9a.m.–4:30p.m.<br/>
+              Tuesday	9a.m.–4:30p.m.<br/>
+              Wednesday	9a.m.–4:30p.m.<br/>
+              Thursday	9a.m.–4:30p.m.<br/>
+              Friday	9a.m.–4:30p.m.<br/>
+              Saturday	9a.m.–4:30p.m.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Google map: <a href="##" onClick="redirect(this)">https://mini.url/ymrgn6f</a></td>
+        </tr>
+      </table>
+    </p>
+ 
+    <p>
+      <table>
+        <thead>
+          <tr>
+            <th><img src="./images/greatpyramid.jpg" width="100%" /></th>
+          </tr>
+        </thead>
+        <tr>
+          <td class="title">The Great Pyramid of Giza</td>
+        </tr>
+        <tr>
+          <td class="subtitle">Egypt<hr/></td>
+        </tr>
+        <tr>
+          <td>The Great Pyramid of Giza is the oldest and largest of the pyramids in the Giza pyramid complex bordering present-day Giza in Greater Cairo, Egypt. It is the oldest of the Seven Wonders of the Ancient World, and the only one to remain largely intact.</td>
+        </tr>
+        <tr>
+          <td>Located in: Giza Necropolis</td>
+        </tr>
+        <tr>
+          <td>Height: 138 m</td>
+        </tr>
+        <tr>
+          <td>Materials: Limestone, Granite, Basalt, Mortar</td>
+        </tr>
+        <tr>
+          <td>Hours:
+            <p style="margin-left:20px">
+              Sunday	8a.m.–5p.m.<br/>
+              Monday	8a.m.–5p.m.<br/>
+              Tuesday	8a.m.–5p.m.<br/>
+              Wednesday	8a.m.–5p.m.<br/>
+              Thursday	8a.m.–5p.m.<br/>
+              Friday	8a.m.–5p.m.<br/>
+              Saturday	8a.m.–5p.m.<br/>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Google map: <a href="##" onClick="redirect(this)">https://mini.url/lkbhnl4</a></td>
+        </tr>
+      </table>
+    </p>
+
+    <p>
+      <table>
+        <thead>
+          <tr>
+            <th><img src="./images/greatwall.jpg" width="100%" /></th>
+          </tr>
+        </thead>
+        <tr>
+          <td class="title">Great Wall of China</td>
+        </tr>
+        <tr>
+          <td class="subtitle">China<hr/></td>
+        </tr>
+        <tr>
+          <td>The Great Wall of China is a series of fortifications that were built across the historical northern borders of ancient Chinese states and Imperial China as protection against various nomadic groups from the Eurasian Steppe.</td>
+        </tr>
+        <tr>
+          <td>Located in: Huairou District, China</td>
+        </tr>
+        <tr>
+          <td>Length: 21,196 km</td>
+        </tr>
+        <tr>
+          <td>Opened: 220 BC</td>
+        </tr>
+        <tr>
+          <td>Hours:
+            <p style="margin-left:20px">
+              Monday	9a.m.–4:30p.m.<br/>
+              Tuesday	9a.m.–4:30p.m.<br/>
+              Wednesday	9a.m.–4:30p.m.<br/>
+              Thursday	9a.m.–4:30p.m.<br/>
+              Friday	9a.m.–4:30p.m.<br/>
+              Saturday	9a.m.–4:30p.m.<br/>
+              Sunday	9a.m.–4:30p.m.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Google map: <a href="##" onClick="redirect(this)">https://mini.url/9cd3fhn</a></td>
+        </tr>
+      </table>
+    </p>
+
+    <p>
+      <table>
+        <thead>
+          <tr>
+            <th><img src="./images/machupicchu.jpg" width="100%" /></th>
+          </tr>
+        </thead>
+        <tr>
+          <td class="title">Machu Picchu</td>
+        </tr>
+        <tr>
+          <td class="subtitle">Peru<hr/></td>
+        </tr>
+        <tr>
+          <td>Machu Picchu is an Incan citadel set high in the Andes Mountains in Peru, above the Urubamba River valley. Built in the 15th century and later abandoned, it’s renowned for its sophisticated dry-stone walls that fuse huge blocks without the use of mortar, intriguing buildings that play on astronomical alignments and panoramic views. Its exact former use remains a mystery.</td>
+        </tr>
+        <tr>
+          <td>Address: 08680, Peru</td>
+        </tr>
+        <tr>
+          <td>Archaeologists: Hiram Bingham</td>
+        </tr>
+        <tr>
+          <td>Google map: <a href="##" onClick="redirect(this)">https://mini.url/zn0hi5c</a></td>
+        </tr>
+      </table>
+    </p>
+
+    <p>
+      <table>
+        <thead>
+          <tr>
+            <th><img src="./images/petra.jpg" width="100%" /></th>
+          </tr>
+        </thead>
+        <tr>
+          <td class="title">Petra</td>
+        </tr>
+        <tr>
+          <td class="subtitle">Jordan<hr/></td>
+        </tr>
+        <tr>
+          <td>Petra is a famous archaeological site in Jordan's southwestern desert. Dating to around 300 B.C., it was the capital of the Nabatean Kingdom. Accessed via a narrow canyon called Al Siq, it contains tombs and temples carved into pink sandstone cliffs, earning its nickname, the "Rose City." Perhaps its most famous structure is 45m-high Al Khazneh, a temple with an ornate, Greek-style facade, and known as The Treasury.</td>
+        </tr>
+        <tr>
+          <td>Elevation: 810 m (2,657 ft)</td>
+        </tr>
+        <tr>
+          <td>Area: 264 km2 (102 sq mi)</td>
+        </tr>
+        <tr>
+          <td>Built: Possibly as early as the 5th century BC</td>
+        </tr>
+        <tr>
+          <td>UNESCO World Heritage Site inscription: 1985</td>
+        </tr>
+        <tr>
+          <td>Google map: <a href="##" onClick="redirect(this)">https://mini.url/o2u4a6g</a></td>
+        </tr>
+      </table>
+    </p>
+
+    <p>
+      <table>
+        <thead>
+          <tr>
+            <th><img src="./images/tajmahal.jpg" width="100%" /></th>
+          </tr>
+        </thead>
+        <tr>
+          <td class="title">Taj Mahal</td>
+        </tr>
+        <tr>
+          <td class="subtitle">Mausoleum in Agra, India<hr/></td>
+        </tr>
+        <tr>
+          <td>The Taj Mahal, is an ivory-white marble mausoleum on the right bank of the river Yamuna in the Indian city of Agra. It was commissioned in 1632 by the Mughal emperor Shah Jahan to house the tomb of his favourite wife, Mumtaz Mahal; it also houses the tomb of Shah Jahan himself.</td>
+        </tr>
+        <tr>
+          <td>Architect: Ustad Ahmad Lahouri</td>
+        </tr>
+        <tr>
+          <td>Construction started: 1631</td>
+        </tr>
+        <tr>
+          <td>Function: Monument, Mausoleum</td>
+        </tr>
+        <tr>
+          <td>Architectural style: Mughal architecture</td>
+        </tr>
+        <tr>
+          <td>Google map: <a href="##" onClick="redirect(this)">https://mini.url/b2mk1t4h</a></td>
+        </tr>
+      </table>
+    </p>
+
+  </section>
+</body>
+</html>

@@ -1,0 +1,82 @@
+short URL journey
+
+
+Mar 1 
+
+1. setup rest API skeleton
+.library used
+.http
+.url
+
+
+2. determine what routes
+
+.ping (get)
+	ping api alive - return current datetime
+
+genurl (post)
+	generate a short url by posting the original URL.
+	post
+		{
+			'url' : original url
+		}
+	response
+		{
+			'url' : short url
+		}
+
+.original (get)
+	get back the original URL using the short URL
+	post
+		{
+			'url' : short url
+		}
+	response
+		{
+			'url' : original url
+		}
+
+
+
+3.List(get)
+	get a list of all generated URL long & short
+
+4.Rmv(delete)
+	remove a stored URL
+
+
+
+
+5. persist store
+. use file base to store generated url + original url
+
+
+
+Mar 2,
+
+Accomplished the following:
+
+1. add url
+2. del url
+3. get url
+4. list urls
+
+all urls added descriptions
+added in checks if generated url same name conflict.
+
+started writing FE page to display all registered URLs
+
+
+Mar 3,
+
+explore building docker image
+add public static 
+
+
+
+Mar 4
+
+Add deregister
+enhance listing
+created public and admin page
+add docker image

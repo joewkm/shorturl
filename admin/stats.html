@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <title>Statistics</title>
+  <style>
+    body {
+      font-family: arial, serif;
+      font-size: 14px;
+    }
+  </style>
+  <script>
+
+    const listStatss = async () => {
+      const response = await fetch('https://localhost:4001/listStats').then();
+
+      if (!response.ok) {
+        document.getElementById('urls').innerHTML = 'Error fetching from API';
+        throw new Error ('Something went wrong!');
+      }
+      const responseData = await response.json();
+
+      const loadedStats = [];
+      for (const key in responseData) {
+        loadedStats.push(responseData[key]);
+      }
+      loadedStats.sort((a, b) => a.desc.toLowerCase() < b.desc.toLowerCase() ? -1 : 1);
+
+      let sno = 1;
+      let urls = "<table>";
+      urls += '<th>';
+      urls += '<tr>';
+      urls += '<td>Desciption</td>';
+      urls += '<td>Id</td>';
+      urls += '<td>Click Count</td>';
+      urls += '</tr>';
+      urls += '</th>';
+      for (const item in loadedStats) {
+        urls += '<tr>';
+        urls += '<td>' + sno.toString() + '. '+ loadedStats[item].desc + '</td>';
+        urls += '<td>' + loadedStats[item].id + '</td>';
+        urls += '<td>' + loadedStats[item].clickCount + '</td>';
+        urls += '</tr>';
+        sno += 1;
+      }
+      urls += '</table>';
+      document.getElementById('urls').innerHTML = urls;
+    };
+
+
+    listStatss().catch((error) => {
+      document.getElementById('urls').innerHTML = 'Error fetching from API';
+      console.log(error);
+    });
+
+  </script>
+</head>
+<body>
+  <main>
+    <p>
+      <h3>Statistics</h3>
+    </p>
+    <hr/>
+  </main>
+  <section>
+    <p>
+      <span id="urls"></span>
+    </p>
+  </section>
+</body>
+</html>

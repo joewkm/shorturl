@@ -1,0 +1,67 @@
+Create Docker image steps
+
+
+1. create the build docker file called 'Dockerfile' (no extension) in the app root.
+
+The content looks like this:
+
+FROM node:12-alpine
+WORKDIR /Shell
+COPY . .
+RUN yarn install --production
+CMD ["node", "/shell/index.js"]
+
+
+2. run docker build base on the above build commands
+
+docker build -t <image name> .
+
+e.g. docker build -t shell .
+
+output:
+
+PS C:\Projects\backend\shell> docker build -t shell .  
+[+] Building 33.2s (10/10) FINISHED
+ => [internal] load build definition from Dockerfile                                  0.1s 
+ => => transferring dockerfile: 148B                                                  0.0s 
+ => [internal] load .dockerignore                                                     0.1s 
+ => => transferring context: 2B                                                       0.0s 
+ => [internal] load metadata for docker.io/library/node:12-alpine                     1.5s 
+ => [auth] library/node:pull token for registry-1.docker.io                           0.0s 
+ => [internal] load build context                                                     5.6s 
+ => => transferring context: 58.95MB                                                  5.5s 
+ => CACHED [1/4] FROM docker.io/library/node:12-alpine@sha256:dfa564312367b1a8fca8db  0.0s 
+ => [2/4] WORKDIR /Shell                                                              0.2s 
+ => [3/4] COPY . .                                                                    1.7s 
+ => [4/4] RUN yarn install --production                                              20.8s 
+ => exporting to image                                                                3.4s 
+ => => exporting layers                                                               3.3s 
+ => => writing image sha256:22e6454fc3b63d60b6d776a0cbc1064339ca0cdb08f05f9b2619b2b6  0.0s 
+ => => naming to docker.io/library/shell                                              0.0s 
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+PS C:\Projects\backend\shell> 
+
+
+3. To start the docker image:
+
+docker run -d -p 4430:4430 shell
+
+P.S. to run multiple ports use this command
+
+docker run -d -p 4430:4430 -p 3000:3000 -p 3001:3001 shell
+
+4. to push image to remote depository
+
+docker 
+
+
+
+
+
+
+
+
+
+
+

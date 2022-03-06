@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+  <title>URL Admin</title>
+  <style>
+    body {
+      font-family: arial, serif;
+      font-size: 14px;
+    }
+  </style>
+  <script>
+
+    const listURLs = async () => {
+      const response = await fetch('https://localhost:4001/listURL').then();
+
+      if (!response.ok) {
+        document.getElementById('urls').innerHTML = 'Error fetching from API';
+        throw new Error ('Something went wrong!');
+      }
+      const responseData = await response.json();
+
+      const loadedURLs = [];
+      for (const key in responseData.response) {
+        loadedURLs.push({
+          shortURL: responseData.response[key].shortURL,
+          longURL : responseData.response[key].longURL,
+          description : responseData.response[key].description
+        });
+      }
+      loadedURLs.sort((a, b) => a.description.toLowerCase() < b.description.toLowerCase() ? -1 : 1);
+
+      let sno = 1;
+      let urls = "<table>";
+      urls += '<th>';
+      urls += '<tr>';
+      urls += '<td>Desciption</td>';
+      urls += '<td>Shortened URL</td>';
+      urls += '<td>Action</td>';
+      urls += '</tr>';
+      urls += '</th>';
+      for (const item in loadedURLs) {
+        urls += '<tr>';
+        urls += '<td>' + sno.toString() + '. '+ loadedURLs[item].description + '</td>';
+        urls += '<td><a href="##" onClick="redirect(this)">' + loadedURLs[item].shortURL + '</a></td>';
+        urls += '<td><a href="##" onClick="deregisterURL(`' + loadedURLs[item].shortURL + '`)">remove</a></td>';
+        urls += '</tr>';
+        sno += 1;
+      }
+      urls += '</table>';
+      document.getElementById('urls').innerHTML = urls;
+    };
+
+
+    listURLs().catch((error) => {
+      document.getElementById('urls').innerHTML = 'Error fetching from API';
+//      console.log(error);
+    });
+
+
+    const registerURL = (event) => {
+      let longURL = document.getElementById('longURL').value;
+      let descURL = document.getElementById('descURL').value;
+      if (longURL.trim().length === 0) {
+        alert('URL required');
+        return;
+      }
+      if (descURL.trim().length === 0) {
+        alert('Description is required');
+        return;
+      }
+
+      const addURL = async () => {
+        const response = await fetch('https://localhost:4001/addURL', {
+          method : 'post',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body : JSON.stringify({
+            'url' : longURL,
+            'description' : descURL
+          })
+        })
+
+        if (!response.ok) {
+          alert('Error adding URL in API');
+          throw new Error ('Something went wrong!');
+        }
+        const responseData = await response.json();
+        console.log(responseData);
+      };
+
+      addURL().catch((error) => {
+        alert('Error adding URL in API');
+        console.log(error);
+      });
+
+      document.getElementById('longURL').value = '';
+      document.getElementById('descURL').value = '';
+      listURLs();
+      // alert('URL registerd with API');
+    };
+
+
+    const deregisterURL = async (id) => {
+
+      const response = await fetch('https://localhost:4001/delURL', {
+        method : 'post',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body : JSON.stringify({
+          'url' : id
+        })
+      })
+
+      if (!response.ok) {
+        console.log('response.ok ', response);
+        alert('Error removing URL in API');
+        return;
+      }
+
+      listURLs();
+
+    };
+
+
+    const redirect = async (id) => {
+      const response = await fetch('https://localhost:4001/getURL',{
+        method : 'post',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body : JSON.stringify({
+          'url' : id.innerHTML
+        }),
+        mode : "cors"
+      });
+
+      if (!response.ok) {
+        document.getElementById('urls').innerHTML = 'Error fetching from API';
+        throw new Error ('Something went wrong!');
+      }
+      const responseData = await response.json();
+      // console.log(responseData.data);
+      originalURL = responseData.data.longURL;
+      // // console.log(originalURL);
+      window.location.href = originalURL;
+    };
+
+
+    redirect().catch((error) => {
+      // console.log(error);
+    });
+
+  </script>
+</head>
+<body>
+  <main>
+    <p>
+      <h3>Short URL Registration</h3>
+      <table>
+        <tr>
+          <td>
+            Long URL :
+          </td>
+          <td>
+            <input id="longURL" type="text" size="100"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description :
+          </td>
+          <td>
+            <input id="descURL" type="text" size="50"/>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button id="registerURL" onClick="registerURL()">Register URL</button>
+          </td>
+        </tr>
+      </table>
+    </p>
+    <hr/>
+  </main>
+  <section>
+    <p>
+      <span id="urls"></span>
+    </p>
+  </section>
+</body>
+</html>
