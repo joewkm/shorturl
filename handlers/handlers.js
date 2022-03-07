@@ -34,7 +34,10 @@ handlers.notFound = ( req, res ) => {
 // use to test whatever
 handlers.test = ( req, res ) => {
   let data = req.body;
-  res.status(200).json(g_stats);
+  console.log('test: ',req.originalUrl);
+  res.writeHead(301, {
+    Location: 'https://www.google.ca'
+  }).end();
 };
 
 
@@ -134,22 +137,14 @@ handlers.addURL = ( req, res ) => {
   /delURL method (post)
   This method de-register the short URL with the API.
   It basically delete the json file in the ./data folder.
-  requires the following in the body:
-  {
-    "url" : "....shortened url...",
-  }
-
-  e.g.
-  {
-      "url" : "https://mini.url/iqa8i80i",
-  }
+  After deletion, it sends a 301 to refresh the client page
 */
 handlers.delURL = ( req, res ) => {
 
   let fname = '';
   try {
-  fname = req.body.url;
-  fname = CONST_DATA_PATH + fname.replace(CONST_URL_PREFIX,'') + '.json';
+    id = req.originalUrl;
+    fname = CONST_DATA_PATH + id.replace('/delURL?id=https://mini.url/','') + '.json';
   } catch (e) {
     res.status(404).json({'response' : 'error deleting file'});
     return;
@@ -169,7 +164,9 @@ handlers.delURL = ( req, res ) => {
     response = {"response" : "url not registered"};
   }
 
-  res.status(200).json(response);
+  res.writeHead(301, {
+    Location: 'https://localhost:4001/admin/index.html'
+  }).end();
 
 };
 
@@ -177,27 +174,14 @@ handlers.delURL = ( req, res ) => {
 /*
   /get method (get)
   This method get the long URL from the API.
-  API returns the entire registered objects which includes the following:
-  . shortened URL
-  . originnal URL
-  . description
-  requires the following in the body:
-  {
-    "url" : "....shortened url...",
-  }
-
-  e.g.
-  {
-      "url" : "https://mini.url/iqa8i80i",
-  }
+  API returns a 301 redirect to the original URL
 */
 handlers.getURL = ( req, res ) => {
 
   let fname = '';
   try {
-    fname = req.body.url;
-    id = fname;
-    fname = CONST_DATA_PATH + fname.replace(CONST_URL_PREFIX,'') + '.json';
+    id = req.originalUrl;
+    fname = CONST_DATA_PATH + id.replace('/getURL?id=https://mini.url/','') + '.json';
   } catch(e) {
     res.status(404).json({'response' : 'error reading shortened url'});
     return;
@@ -214,12 +198,16 @@ handlers.getURL = ( req, res ) => {
     return;
   }
 
-  // is ok to return response and still continue code execution!
-  res.status(200).json(response);
+  res.writeHead(301, {
+    Location: response.data.longURL
+  }).end();
 
+  // is ok to continue code execution even afte returning response!
   logStats(data);
 
 };
+
+
 
 
 /*

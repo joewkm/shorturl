@@ -45,18 +45,25 @@ PS C:\Projects\backend\shell>
 
 3. To start the docker image:
 
-docker run -d -p 4430:4430 shell
+docker run -d -p 4001:4001 shell
 
-P.S. to run multiple ports use this command
+P.S. to run multiple ports use this command, exposing the port 4001
 
-docker run -d -p 4430:4430 -p 3000:3000 -p 3001:3001 shell
+docker run -d -p 4001:4001 joewkm/joewkm:shorturl
 
-4. to push image to remote depository
+4. to push image to remote depository (docker hub)
 
-docker 
+docker push joewkm/joewkm:shorturl
 
+5. to pull image from another computer and run locally,
+  . install docker for desktop
+  . pull image from docker hub
 
+    docker pull joewkm/joewkm:shorturl
 
+6. start docker exposing port 4001.
+
+7. accessing API from localhost:4001.
 
 
 

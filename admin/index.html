@@ -41,8 +41,8 @@
       for (const item in loadedURLs) {
         urls += '<tr>';
         urls += '<td>' + sno.toString() + '. '+ loadedURLs[item].description + '</td>';
-        urls += '<td><a href="##" onClick="redirect(this)">' + loadedURLs[item].shortURL + '</a></td>';
-        urls += '<td><a href="##" onClick="deregisterURL(`' + loadedURLs[item].shortURL + '`)">remove</a></td>';
+        urls += '<td><a href="https://localhost:4001/getURL?id=' + loadedURLs[item].shortURL + '">' + loadedURLs[item].shortURL + '</a></td>';
+        urls += '<td><a href="https://localhost:4001/delURL?id=' + loadedURLs[item].shortURL + '">remove</a></td>';
         urls += '</tr>';
         sno += 1;
       }
@@ -50,10 +50,8 @@
       document.getElementById('urls').innerHTML = urls;
     };
 
-
     listURLs().catch((error) => {
       document.getElementById('urls').innerHTML = 'Error fetching from API';
-//      console.log(error);
     });
 
 
@@ -97,60 +95,7 @@
       document.getElementById('longURL').value = '';
       document.getElementById('descURL').value = '';
       listURLs();
-      // alert('URL registerd with API');
     };
-
-
-    const deregisterURL = async (id) => {
-
-      const response = await fetch('https://localhost:4001/delURL', {
-        method : 'post',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body : JSON.stringify({
-          'url' : id
-        })
-      })
-
-      if (!response.ok) {
-        console.log('response.ok ', response);
-        alert('Error removing URL in API');
-        return;
-      }
-
-      listURLs();
-
-    };
-
-
-    const redirect = async (id) => {
-      const response = await fetch('https://localhost:4001/getURL',{
-        method : 'post',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body : JSON.stringify({
-          'url' : id.innerHTML
-        }),
-        mode : "cors"
-      });
-
-      if (!response.ok) {
-        document.getElementById('urls').innerHTML = 'Error fetching from API';
-        throw new Error ('Something went wrong!');
-      }
-      const responseData = await response.json();
-      // console.log(responseData.data);
-      originalURL = responseData.data.longURL;
-      // // console.log(originalURL);
-      window.location.href = originalURL;
-    };
-
-
-    redirect().catch((error) => {
-      // console.log(error);
-    });
 
   </script>
 </head>

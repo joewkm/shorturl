@@ -22,8 +22,8 @@ let appRouter = function (app) {
   app.get('/ping', handlers.ping);
   app.get('/test', handlers.test);
   app.post('/addURL', handlers.addURL);
-  app.post('/delURL', handlers.delURL);
-  app.post('/getURL', handlers.getURL);
+  app.get('/delURL', handlers.delURL);
+  app.get('/getURL', handlers.getURL);
   app.get('/listURL', handlers.listURL);
   app.get('/listStats', handlers.listStats);
 }
