@@ -19,7 +19,9 @@ The statistic page to see the stats can be found on:
 https://localhost:4001/admin/stats.html
 
 The public sample page can be found on:
-https://shorturl-c3bb9.web.app/
+https://localhost:4001/public/index.html
+
+https://shorturl-c3bb9.web.app (Cloud version hosted on firebase)
 
 This project is a part of a code challenge project.
  
